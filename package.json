@@ -16,7 +16,9 @@
     "@babel/runtime": "^7.3.4",
     "meteor-node-stubs": "^0.4.1",
     "react": "^16.5.0",
-    "react-dom": "^16.5.0"
+    "react-dom": "^16.5.0",
+    "react-redux": "^7.1.0",
+    "redux": "^4.0.4"
   },
   "meteor": {
     "mainModule": {

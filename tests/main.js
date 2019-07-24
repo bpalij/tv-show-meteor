@@ -1,4 +1,9 @@
 import assert from 'assert';
+import '../imports/misc/paramsQuery.test.js';
+import '../imports/misc/headersToObj.test.js';
+import '../settings.test.js';
+import '../imports/ui/redux/actionTypes.test.js';
+import '../imports/ui/redux/actions.test.js';
 
 describe('tv-show-meteor', function () {
   it('package.json has correct name', async function () {

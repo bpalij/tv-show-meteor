@@ -10,7 +10,13 @@
     "pretest": "npm run lint --silent"
   },
   "eslintConfig": {
-    "extends": "@meteorjs/eslint-config-meteor"
+    "extends": "@meteorjs/eslint-config-meteor",
+    "env": {
+      "browser": true,
+      "node": true,
+      "meteor": true,
+      "mocha": true
+    }
   },
   "dependencies": {
     "@babel/runtime": "^7.3.4",

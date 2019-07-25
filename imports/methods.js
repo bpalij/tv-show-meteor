@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import headersToObj from './misc/headersToObj.js';
 import getImageLinks from './misc/getImageLinks.js';
 import paramsQuery from './misc/paramsQuery.js';

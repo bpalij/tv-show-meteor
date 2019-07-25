@@ -1,9 +1,9 @@
-// import { Meteor } from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // es-lint-disable-next-line no-unused-vars
-import Links from '../../api/links.js';
-// import '../../methods.js';
+// import Links from '../../api/links.js';
+import '../../methods.js';
 // import headersToObj from '../../misc/headersToObj.js';
 // import getImageLinks from '../../misc/getImageLinks.js';
 // import paramsQuery from '../../misc/paramsQuery.js';

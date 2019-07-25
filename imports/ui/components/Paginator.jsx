@@ -1,9 +1,12 @@
 // import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import headersToObj from '../../misc/headersToObj.js';
-import getImageLinks from '../../misc/getImageLinks.js';
-import paramsQuery from '../../misc/paramsQuery.js';
+// es-lint-disable-next-line no-unused-vars
+import Links from '../../api/links.js';
+// import '../../methods.js';
+// import headersToObj from '../../misc/headersToObj.js';
+// import getImageLinks from '../../misc/getImageLinks.js';
+// import paramsQuery from '../../misc/paramsQuery.js';
 
 class Paginator extends Component {
   constructor(props) {
@@ -16,28 +19,36 @@ class Paginator extends Component {
       loadedData, startLoadData, filters, setError,
     } = this.props;
     startLoadData();
-    let headers;
-    let dataTemp;
-    fetch(`https://api.trakt.tv/shows/${paramsQuery(filters, page)}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'trakt-api-version': '2',
-        'trakt-api-key': `${Meteor.settings.public.traktClientId}`,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          headers = headersToObj(res.headers);
-          return res.json();
-        }
-        throw new Error(`Error ${res.status}: ${res.statusText}`);
-      })
-      .then((data) => {
-        dataTemp = data;
-        return getImageLinks(data);
-      })
-      .then((img) => { loadedData(dataTemp, headers, img); })
-      .catch((e) => { setError(`Error '${e}', try to reload page`); });
+    // let headers;
+    // let dataTemp;
+    // fetch(`https://api.trakt.tv/shows/${paramsQuery(filters, page)}`, {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'trakt-api-version': '2',
+    //     'trakt-api-key': `${Meteor.settings.public.traktClientId}`,
+    //   },
+    // })
+    //   .then((res) => {
+    //     if (res.ok) {
+    //       headers = headersToObj(res.headers);
+    //       return res.json();
+    //     }
+    //     throw new Error(`Error ${res.status}: ${res.statusText}`);
+    //   })
+    //   .then((data) => {
+    //     dataTemp = data;
+    //     return getImageLinks(data);
+    //   })
+    //   .then((img) => { loadedData(dataTemp, headers, img); })
+    //   .catch((e) => { setError(`Error '${e}', try to reload page`); });
+    Meteor.call('getInfo', filters, page, function(err, result) {
+      if (err) {
+        setError(`Error '${err}', try to reload page`);
+      } else {
+        const { data, headers, images } = result;
+        loadedData(data, headers, images);
+      }
+    });
   }
 
   render() {

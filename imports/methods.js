@@ -3,7 +3,7 @@ import headersToObj from './misc/headersToObj.js';
 import getImageLinks from './misc/getImageLinks.js';
 import paramsQuery from './misc/paramsQuery.js';
 
-Meteor.methods = ({
+Meteor.methods({
   getInfo (filters, page) {
     let headers;
     let dataTemp;

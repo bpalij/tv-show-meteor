@@ -1,9 +1,6 @@
-// import { Meteor } from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import headersToObj from '../../misc/headersToObj.js';
-import getImageLinks from '../../misc/getImageLinks.js';
-import paramsQuery from '../../misc/paramsQuery.js';
 
 const yearOptions = [''];
 for (let i = ((new Date()).getFullYear()); i >= 1800; i -= 1) {
@@ -46,28 +43,14 @@ class Form extends Component {
     const newFilters = { ...this.state };
     changeParams(newFilters);
     startLoadData();
-    let headers;
-    let dataTemp;
-    fetch(`https://api.trakt.tv/shows/${paramsQuery(newFilters)}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'trakt-api-version': '2',
-        'trakt-api-key': `${Meteor.settings.public.traktClientId}`,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          headers = headersToObj(res.headers);
-          return res.json();
-        }
-        throw new Error(`Error ${res.status}: ${res.statusText}`);
-      })
-      .then((data) => {
-        dataTemp = data;
-        return getImageLinks(data);
-      })
-      .then((img) => { loadedData(dataTemp, headers, img); })
-      .catch((e) => { setError(`Error '${e}', try to reload page`); });
+    Meteor.call('getInfo', newFilters, undefined, function(err, result) {
+      if (err) {
+        setError(`Error '${err}', try to reload page`);
+      } else {
+        const { data, headers, images } = result;
+        loadedData(data, headers, images);
+      }
+    });
   }
 
   render() {

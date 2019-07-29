@@ -1,41 +1,25 @@
-// import { Meteor } from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import headersToObj from '../../misc/headersToObj.js';
 import * as actionCreators from '../redux/actions.js';
 import './ReduxApp.css';
 import Form from './Form.jsx';
 import Table from './Table.jsx';
 import Paginator from './Paginator.jsx';
-import getImageLinks from '../../misc/getImageLinks.js';
 import ErrorMessage from './ErrorMessage.jsx';
 
 class ReduxApp extends Component {
   componentDidMount() {
     const { loadedData, setError } = this.props;
-    let headers;
-    let dataTemp;
-    fetch('https://api.trakt.tv/shows/trending', {
-      headers: {
-        'Content-Type': 'application/json',
-        'trakt-api-version': '2',
-        'trakt-api-key': `${Meteor.settings.public.traktClientId}`,
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          headers = headersToObj(res.headers);
-          return res.json();
-        }
-        throw new Error(`Error ${res.status}: ${res.statusText}`);
-      })
-      .then((data) => {
-        dataTemp = data;
-        return getImageLinks(data);
-      })
-      .then((img) => { loadedData(dataTemp, headers, img); })
-      .catch((e) => { setError(`Error '${e}', try to reload page`); });
+    Meteor.call('getInfo', { sort: 'trending' }, undefined, function(err, result) {
+      if (err) {
+        setError(`Error '${err}', try to reload page`);
+      } else {
+        const { data, headers, images } = result;
+        loadedData(data, headers, images);
+      }
+    });
   }
 
   render() {

@@ -19,28 +19,6 @@ class Paginator extends Component {
       loadedData, startLoadData, filters, setError,
     } = this.props;
     startLoadData();
-    // let headers;
-    // let dataTemp;
-    // fetch(`https://api.trakt.tv/shows/${paramsQuery(filters, page)}`, {
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'trakt-api-version': '2',
-    //     'trakt-api-key': `${Meteor.settings.public.traktClientId}`,
-    //   },
-    // })
-    //   .then((res) => {
-    //     if (res.ok) {
-    //       headers = headersToObj(res.headers);
-    //       return res.json();
-    //     }
-    //     throw new Error(`Error ${res.status}: ${res.statusText}`);
-    //   })
-    //   .then((data) => {
-    //     dataTemp = data;
-    //     return getImageLinks(data);
-    //   })
-    //   .then((img) => { loadedData(dataTemp, headers, img); })
-    //   .catch((e) => { setError(`Error '${e}', try to reload page`); });
     Meteor.call('getInfo', filters, page, function(err, result) {
       if (err) {
         setError(`Error '${err}', try to reload page`);

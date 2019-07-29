@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 async function getImageLink(item) {
   try {
-    const res = await fetch(`https://api.themoviedb.org/3/find/${item.show ? item.show.ids.imdb : item.ids.imdb}?api_key=${Meteor.settings.public.tmdbLocalhost}&language=en-US&external_source=imdb_id`);
+    const res = await fetch(`https://api.themoviedb.org/3/find/${item.show ? item.show.ids.imdb : item.ids.imdb}?api_key=${Meteor.settings.tmdbLocalhost}&language=en-US&external_source=imdb_id`);
     const info = await res.json();
     const img = info.tv_results[0].poster_path;
     if (!img) {

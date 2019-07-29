@@ -5,7 +5,6 @@ import { sha3_512 } from 'js-sha3';
 import * as settings from './settings.json';
 
 describe('settings.json', function() {
-  // eslint-disable-next-line space-before-blocks
   it.skip('public.traktClientId hash is correct', function() {
     assert.strictEqual(sha3_512(`${settings.public.traktClientId}`), '8831f40ea62600a2f10b6e1944e550f6d8e9e8d9fbdc48d5da80554ec69c027e5dd475be79048358f6a81d476fbaeec91180cdf06d5a8bdec76b687a0e24112a');
   });

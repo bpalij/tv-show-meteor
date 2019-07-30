@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor';
 import assert from 'assert';
 // disabled rule because of such library
 // eslint-disable-next-line camelcase

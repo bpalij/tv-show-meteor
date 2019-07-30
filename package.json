@@ -8,8 +8,7 @@
     "devtest": "meteor test --settings settings.json --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
-    "lint": "eslint .",
-    "pretest": "npm run lint --silent"
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor",
